@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<script type="text/javascript" src="/angular/lib/angular.js"></script>
+	<script type="text/javascript">
+		var app = angular.module("myApp",[]);
+		app.filter("limitchars",function(){
+			return function(input,charcount){
+				console.log("filter is called");
+				return (input.length > charcount ? input.substring(0,charcount) : input);
+			}
+		});
+	</script>
+	<title>Filter Demo</title>
+</head>
+<body ng-app="myApp">
+{{ "De" | limitchars : 5 }}
+</body>
+</html>

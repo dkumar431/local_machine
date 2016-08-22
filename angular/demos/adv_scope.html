@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Advanced Scope Demo</title>
+	<script type="text/javascript" src="lib/angular.js"></script>
+	<script type="text/javascript">
+		var app = angular.module('myApp',[]);
+		app.controller('BooksCtrl', ['$scope', function($scope){
+
+			$scope.books = ['Physics','Chemistry','Maths','Zoology'];
+			$scope.wlCount = 0;
+			$scope.addToWishlist = function(book){
+				$scope.wlCount++;
+				if($scope.wlCount == 2){
+					alert("Congratulations, now you can buy the books.");
+				}
+			}
+
+			$scope.$watch('wlCount',function(newVal,oldVal){
+				if(newVal == 2){
+					alert("There are 2 books in your cart");
+				}
+			});
+		}]);
+	</script>
+</head>
+<body ng-app="myApp">
+
+	<div ng-controller="BooksCtrl">
+		<ul>
+			<li ng-repeat="book in books">
+				{{book}} <a href="#" ng-click="addToWishlist(book)">Add To Wishlist</a>
+			</li>
+		</ul>
+		<strong>Total Items: {{wlCount}}</strong>
+	</div>
+
+</body>
+</html>

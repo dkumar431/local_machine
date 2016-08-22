@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<title>HTTP Example</title>
+	<script src="/angular/lib/angular.js"></script>
+	<script type="text/javascript">
+		var myApp = angular.module('myApp',[]);
+
+		myApp.factory('$wservice', ['$http', function($http){
+			return {
+				getWeatherRemote: function (country,city){
+					var query = city + ',' + country;
+					return $http({
+							method: 'GET',
+							url: 'http://api.openweathermap.org/data/2.5/weather',
+							params: {q: query,APPID: 'f458e447b93824cb3a1f23ad09a98f07'},
+							cache: true
+						}).then(
+							function(response){
+								//return data.data.weather[0].description
+								console.log(response);
+								return response.data.weather[0].description;
+								
+						});
+				}	
+			}
+
+			
+		}]);
+
+		myApp.controller('WeatherController', ['$scope','$wservice', function($scope,$wservice){
+			$scope.temp = "";
+			$scope.getWeather = function(){
+				$wservice.getWeatherRemote($scope.country,$scope.city).then(function(data){
+					$scope.temp = data;
+				},function(){
+
+				});
+			}
+		}]);
+	</script>
+</head>
+<body ng-controller="WeatherController">
+	City: <input type="text" ng-model="city"></input>
+	<br />
+	Country: <input type="text" ng-model="country"></input>
+	<br />
+	<button ng-click="getWeather()">Find Temp</button>
+	<br />
+	<b><span>Today's tempreture {{temp}}</span></b>
+
+</body>
+</html>

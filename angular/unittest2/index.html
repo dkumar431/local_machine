@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine-html.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/boot.min.js"></script>
+  </head>
+  <body>
+  </body>
+  <script type="text/javascript">
+    var calculator ={
+      sum: function(x,y){
+        return x+y;
+      },
+      sub: function(x,y){
+        return x-y;
+      },
+      div: function(x,y){
+        if(y == 0){
+          return 0;
+        }else{
+         return x/y;
+        }
+      }
+    }
+    // 1 spec = 1 logical group = 1 describe
+    describe('math',function(){
+      it('1+1 should be 2',function(){
+        expect(1 + 1).toEqual(2);
+      });
+    });
+
+    describe('calculator',function(){
+      it('1+1 should be 2',function(){
+        expect(calculator.sum(1,1)).toEqual(2);
+      });
+      it('2-1 should be 1',function(){
+        expect(calculator.sub(2,1)).toEqual(1);
+      });
+      it('10/2 should be 5',function(){
+        expect(calculator.div(10,2)).toEqual(5);
+      });
+      it('10 / 0, the function should return 0',function(){
+        expect(calculator.div(10,0)).toEqual(0);
+      })
+    });
+
+  </script>
+</html>

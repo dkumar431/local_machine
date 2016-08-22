@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Apply Digest Example</title>
+	<script type="text/javascript" src="lib/angular.js"></script>
+	<script type="text/javascript">
+
+		var myApp = angular.module('myApp',[]);
+
+		myApp.controller('myCtrl', ['$scope','$timeout', function($scope,$timeout){
+			$scope.scheduleTask = function() {
+				// setTimeout(function(){
+
+				// 	//$scope.message = "Fetched after 3 second";
+
+				// 	$scope.$apply(function(){
+				// 		$scope.message = "Fetched after 3 second";
+				// 	});
+
+				// 	console.log("message is"+ $scope.message);
+				// },3000);
+
+				$timeout(function(){
+					$scope.message = "Fetched after 3 second";
+				}, 3000);
+			}
+		}]);
+
+	</script>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+		<button ng-click="scheduleTask()">Get message in 3sec</button>
+		<br>
+		Message fetched: {{message}}
+	</div>
+
+</body>
+</html>

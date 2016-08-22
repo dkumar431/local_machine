@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<title>Directive Demo</title>
+	<script type="text/javascript" src="/angular/lib/angular.js"></script>
+	<script type="text/javascript">
+
+		var app = angular.module('myApp',[]);
+		
+		app.controller('myCtrl', ['$scope', function($scope){
+			$scope.message = "I love anuglar.";
+
+			$scope.showMessage = function(){
+				console.log("showMessage function is called.");
+			}
+
+		}]);
+
+		app.directive('helloWorld', function(){
+			// Runs during compile
+			return {
+				// name: '',
+				// priority: 1,
+				// terminal: true,
+				scope: {
+					message: '=messageAttr1',
+					showMessage: '&showMessageAttr',
+					name: '@'
+				}, // {} = isolate, true = child, false/undefined = no change
+				controller: function($scope, $element, $attrs, $transclude) {
+					console.log("controller is called.");
+				},
+				// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
+				restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
+				template: '<p ng-click="clearMessage()">"Hello World! {{message}}"</p>',
+				// templateUrl: '',
+				replace: false,
+				// transclude: true,
+				 compile: function(tElement, tAttrs){
+				 	return {
+                pre: function preLink( scope, element, attributes ) {
+                    console.log( ' (pre-link)'  );
+                },
+                post: function postLink( scope, element, attributes ) {
+                    console.log( ' (post-link)'  );
+                }
+            }; 
+				 },
+				link: function($scope, iElm, iAttrs, controller) {
+					console.log('link is called.');
+					$scope.$watch('message',function(value){
+						
+						
+						$scope.showMessage();
+						
+					});
+
+					$scope.clearMessage = function(){
+						console.log("clearmessage called");
+						$scope.message = "";
+					}
+
+					iElm.bind('mouseover',function(){
+						iElm.css('cursor','pointer');
+					})
+				}
+			};
+		});
+	</script>
+</head>
+<body ng-controller="myCtrl">
+	<input type="text" ng-model="message" placeholder="Enter message" />
+	<!-- one way binding isolated scope -->
+	<!-- <hello-world message-attr="{{message}}"></hello-world>  --> 
+	<!-- two way binding isolated scope -->
+	<hello-world message-attr1="message" show-message-attr='showMessage()' name="deepak" lname="padhy"></hello-world>
+	<!-- if we use message="message", we can simply use = only -->
+	
+
+</body>
+</html>

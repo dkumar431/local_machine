@@ -1,0 +1,33 @@
+<html ng-app="myApp">
+    <head>
+        <script type="text/javascript" src="/lib/angular.js"></script>
+        <script>
+            var app = angular.module("myApp",[]);
+            app.controller("TestCtrl",['$scope',function($scope){
+                this.name = "Deepak Kumar";
+                $scope.$watchGroup(['score','time'],function(newVal,oldVal){
+
+                });
+                var student = {name: "Ajay",roll: 123}
+                $scope.$watchCollection(student,function(newVal,oldVal){
+
+                });
+
+            }]);
+        </script>
+    </head>
+    <body ng-controller="TestCtrl as tc">
+        <input type="text" ng-model="tc.name">
+        <br />
+        {{::tc.name}}
+        <br />
+        <input type="text" ng-model="::tc.name">
+        
+        <p ng-if="tc.name === 'Deepak Kumar'">
+            My name is Deepak Kumar Padhy.Using ng-if.
+        </p>
+        <p ng-show="tc.name === 'Deepak Kumar'">
+            My name is Deepak Kumar Padhy.Using ng-show.
+        </p>
+    </body>
+</html>

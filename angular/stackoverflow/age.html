@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <title>Directive Test</title>
+  <script src="/angular/lib/angular.js"> </script>
+  <script type="text/javascript">
+    var app = angular.module('myApp', []);
+    app.controller('MyCtrl', ['$scope', function ($scope) {
+        $scope.school = "QMH";
+        $scope.dynavar = new Date();
+    }]);
+    app.directive('personInfo', ['$compile',function ($compile) {
+      return {
+        restrict: 'EA',
+        scope: {
+          name: '@',
+          age: '=',
+          edu: '=',
+          dynavar: '@'
+        },
+        template: "My name is {{name}} . My age is {{age}}.Your school is <input type='text' ng-model='edu'> ",
+        link: function (scope, iElement, iAttrs) {
+          var html = "<div>this is dynamic html<div>{{dynavar}}";
+          var content = $compile(html)(scope);
+          //console.log(content);
+          iElement.append(content);
+
+        }
+      };
+    }])
+  </script>
+</head>
+<body ng-controller="MyCtrl">
+  <input type="text" ng-model="school">
+  <person-info name="deepak" age="25" edu="school" dynavar="anit"></person-info>
+</body>
+</html>

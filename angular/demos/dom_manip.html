@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dom Manupulation Using Directive</title>
+  <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+  <script type="text/javascript" src="/angular/lib/angular.js"></script>
+  <script type="text/javascript">
+    // $(document).ready(function(){
+    //   $(".details").hide();
+    //   $("#more").click(function(e){
+    //     if($(".details").is(":hidden")){
+    //       $(".details").slideDown();
+    //     }else{
+    //       $(".details").slideUp();
+    //     }
+    //   })
+    // })
+  </script>
+  <style type="text/css">
+  .details {
+    width: 300px;
+    height: 150px;
+    background: blue;
+  }
+  </style>
+</head>
+<body>
+
+  <!-- <button id="more">Advanced Search</button>
+  <div class="details">
+    More search filters here.
+  </div> -->
+
+  <div data-my-slide="showDetails">
+    More search filters here.
+  </div>
+
+</body>
+</html>

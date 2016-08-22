@@ -1,0 +1,2 @@
+# Ignore all the node_module folders in all the sample projects
+node_modules/

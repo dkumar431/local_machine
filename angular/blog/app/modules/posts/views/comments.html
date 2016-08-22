@@ -1,0 +1,21 @@
+<div class="row">
+	<div class="col-xs-12">
+		<br />
+		<textarea cols="40" rows="5" class="form-control" ng-model='comment.content' placeholder="Comment here.."></textarea>	
+		<br />
+		By: <input type="text" ng-model='comment.author' class="form-control" placeholder="Name"></input>
+		<br />
+		<input type="submit" value="Add" ng-click="saveComment()" class="form-control btn-success small-button"></input>
+		<hr />
+		<div class="comments-list">
+			<div class="single-comment" ng-repeat="comment in postInstance.comments">
+				<div class="content">{{comment.content}}</div>
+				<div class="info"></div>
+			</div>
+			<div class="comments">
+				<spb-comments post-instance="singlePost"></spb-comments>
+			</div>
+		</div>
+		
+	</div>
+</div>

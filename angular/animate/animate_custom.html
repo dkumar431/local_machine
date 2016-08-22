@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<title>Animation Demo</title>
+	<script type="text/javascript" src="/angular/lib/angular.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.js"></script>
+
+	<script type="text/javascript">
+		var app = angular.module('myApp',['ngAnimate']);
+		app.directive('shakeDiv', ['$timeout','$animate', function($timeout,$animate){
+			// Runs during compile
+			return {
+				// name: '',
+				// priority: 1,
+				// terminal: true,
+				// scope: {}, // {} = isolate, true = child, false/undefined = no change
+				// controller: function($scope, $element, $attrs, $transclude) {},
+				// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
+				// restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
+				// template: '',
+				// templateUrl: '',
+				// replace: true,
+				// transclude: true,
+				// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
+				link: function($scope, iElm, iAttrs, controller) {
+					$scope.generateRandom = function(){
+						$scope.rand = Math.random().toFixed(2);
+						if($scope.rand > 0.5){
+							console.log(iElm);
+							$animate.addClass(iElm.find('h2.my-animation-class'),'shake');
+						};
+						$timeout(function(){
+							$animate.removeClass(iElm.find('.my-animation-class'),'shake');	
+						}, 7000);
+
+
+					};
+				},
+				template: '<input type="button" ng-click="generateRandom()" value="Generate Random"><h2 class="my-animation-class">{{rand}}</h2>'
+			};
+		}]);
+	</script>
+	<style type="text/css">
+		.my-animation-class {
+		    -webkit-animation-duration: 1s;
+		    animation-duration: 1s;
+		    -webkit-animation-fill-mode: both;
+		    animation-fill-mode: both;
+		}
+		@-webkit-keyframes shake {
+		    0%, 100% {-webkit-transform: translateX(0);}
+		    10%, 30%, 50%, 70%, 90% {-webkit-transform: translateX(-10px);}
+		    20%, 40%, 60%, 80% {-webkit-transform: translateX(10px);}
+		}
+		@keyframes shake {
+		    0%, 100% {transform: translateX(0);}
+		    10%, 30%, 50%, 70%, 90% {transform: translateX(-10px);}
+		    20%, 40%, 60%, 80% {transform: translateX(10px);}
+		}
+		.my-animation-class.shake {
+		    -webkit-animation-name: shake;
+		    animation-name: shake;
+		}
+	</style>
+</head>
+<body>
+	<shake-div></shake-div>
+	<div class="abc"></div>
+</body>
+</html>

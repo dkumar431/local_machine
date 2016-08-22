@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Routing Demo</title>
+    <script src="/angular/lib/angular.js"> </script>
+    <script src="/angular/lib/angular-route.js"></script>
+    <script src="/angular/routing/script.js"></script>
+
+  </head>
+
+  <body ng-app="myApp">
+     <script type="text/ng-template" id="/view3.tpl">
+      My Name is Deepak.
+    </script>
+    <ul class="menu">
+      <li>
+        <a href="#/view1">View1</a>
+      </li>
+      <li>
+        <a href="#/view2/deepak/kumar?id=123">View2</a>
+      </li>
+      <li>
+        <a href="#/view3">View3</a>
+      </li>
+      <li ng-controller="testCtrl">
+        <button ng-click="loadview()">Get New View</button>
+      </li>
+      <li>
+        <a href="#/view5">View5</a>
+      </li>
+    </ul>
+    <div style="background-color: green;height: 500px;width:500px;" class="ng-view"></div>
+  </body>
+
+</html>

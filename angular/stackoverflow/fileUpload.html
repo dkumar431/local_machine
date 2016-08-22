@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>File Upload Directive</title>
+  <script src="/angular/lib/angular.js"> </script>
+  <script type="text/javascript">
+    var myApp = angular.module('myApp', []);
+    myApp.directive('fileUpload', [function () {
+      return {
+        restrict: 'E',
+        template: '<input type="file" id="fileUpload" accept="image/*"><br>{{filename}}<br>',
+        link: function (scope, iElement, iAttrs) {
+          iElement
+            .find('input')
+            .on('change',function(event){
+              console.log(event);
+              scope.fileName = e.target.files[0].name;
+              console.log(scope.fileName);
+            });
+        }
+      };
+    }])
+  </script>
+</head>
+<body>
+  <file-upload></file-upload>
+</body>
+</html>

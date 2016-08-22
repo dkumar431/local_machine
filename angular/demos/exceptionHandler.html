@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <title>Angular Global Exception Handler</title>
+  <script type="text/javascript" src="/angular/lib/angular.js"></script>
+  <script type="text/javascript">
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', ['$scope','$exceptionHandler', function ($scope,$exceptionHandler) {
+
+      //All the errors from our page will be catched by our custom exception handler
+      //throw "too big";
+
+      try{
+        throw "too big";
+      }catch(e){
+        $exceptionHandler(e);
+      }
+
+    }]);
+    app.factory('$exceptionHandler', ['$log',function ($log) {
+      return function(exception,cause){
+        $log.warn(exception);
+      }
+    }])
+  </script>
+</head>
+<body ng-controller="myCtrl">
+
+</body>
+</html>

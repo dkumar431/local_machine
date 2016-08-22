@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <title>Timer</title>
+  <script src="/angular/lib/angular.js"> </script>
+  <script type="text/javascript">
+    angular.module('myApp',[])
+    .directive('stopWatch', function() {
+
+        return {
+            restrict: 'A',
+            replace: false,
+            scope: {
+                name: "=",
+                time: "="//,
+                //timeOfInterview: "="
+            },
+            controller: function($scope,$interval) {
+
+                $scope.getTimeRemaining = function(endtime) {
+
+                    $scope.t[$scope.name].total = Date.parse(endtime) - Date.parse(new Date());
+                    console.log(Date.parse(endtime) - Date.parse(new Date()));
+                    $scope.t[$scope.name].seconds = Math.floor(($scope.t[$scope.name].total / 1000) % 60);
+                    $scope.t[$scope.name].minutes = Math.floor(($scope.t[$scope.name].total / 1000 / 60) % 60);
+                    $scope.t[$scope.name].hours = Math.floor(($scope.t[$scope.name].total / (1000 * 60 * 60)) % 24);
+                    $scope.t[$scope.name].days = Math.floor($scope.t[$scope.name].total / (1000 * 60 * 60 * 24));
+                    console.log($scope.t[$scope.name]);
+                }
+
+                $scope.initializeClock = function(endtime) {
+
+                    $scope.t = {};
+                    $scope.t[$scope.name] = {};
+                    $scope.updateClock = function() {
+
+                        $scope.getTimeRemaining(endtime);
+                        $scope.t[$scope.name].hours = ('0' + $scope.t[$scope.name].hours).slice(-2);
+                        $scope.t[$scope.name].minutes = ('0' + $scope.t[$scope.name].minutes).slice(-2);
+                        $scope.t[$scope.name].seconds = ('0' + $scope.t[$scope.name].seconds).slice(-2);
+
+                        if ($scope.t[$scope.name].total <= 0) {
+                            clearInterval($scope.timeinterval);
+                        }
+                    }
+
+                    $scope.updateClock();
+                    //$scope.timeinterval = setInterval($scope.updateClock, 1000);
+                    $scope.timeinterval = $interval($scope.updateClock, 1000);
+                }
+
+                var newDateObj = new Date(new Date().getTime() + 30*60000);
+                $scope.initializeClock(newDateObj);
+            },
+            templateUrl: 'stopWatchView.html'
+        };
+
+    });
+  </script>
+</head>
+<body>
+  <div stop-watch name="Deepak" time="" >
+
+  </div>
+</body>
+</html>

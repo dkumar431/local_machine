@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<title>HTTP Example</title>
+	<script src="/angular/lib/angular.js"> </script>
+</head>
+<script type="text/javascript">
+	var app = angular.module("myApp",[]);
+	
+	app.controller('ArticleController', ['$scope','articleFactory', function($scope, articleFactory){
+		//1st way - Never work
+		//$scope.articles = articleFactory.getArticles();
+
+		//2nd Way
+		// $scope.articles = [];
+		// articleFactory.getArticles().then(function(response){
+		// 	$scope.articles = response.data;
+		// },function(response){
+		// 	alert("Error Occoured");
+		// });
+
+		//3rd Way
+		var promise = articleFactory.getArticles();
+		promise.then(function(response){
+			$scope.articles = response.data;
+		},function(response){
+			alert("Error Occoured");
+		});
+
+
+	}]);
+
+	app.factory('articleFactory',['$http','$q',function($http,$q){
+
+		return {
+			getArticles: function(){
+
+				//1st way - Never work
+				// $http.get('http://localhost/angular/promise/articles.json').then(function(response){
+				// 	return response;
+				// },function(response){
+				// 	console.log("Failure");
+				// });
+
+				//2nd Way
+				//return $http.get('http://localhost/angular/promise/articles.json');
+
+				//3rd way
+				var deferred = $q.defer();
+				$http.get('http://localhost/angular/promise/articles.json').then(function(response){
+					deferred.resolve(response);
+				},function(){
+					deferred.reject(response);
+				});				
+
+				return deferred.promise;
+			}
+		}
+	}]);
+</script>
+<body>
+	<div ng-controller="ArticleController">
+		<div ng-repeat="article in articles">
+			<h3>{{article.title}}</h3>
+			{{article.description}}
+		</div>
+	</div>
+
+</body>
+</html>

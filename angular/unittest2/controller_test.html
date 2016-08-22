@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <title>Angular Controller Unit Test</title>
+
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine-html.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/boot.min.js"></script>
+
+  <script type="text/javascript" src="/angular/lib/angular.js"></script>
+
+  <script type="text/javascript">
+    var app = angular.module('myApp', []);
+    app.controller('CalcCtrl', ['$scope', function ($scope) {
+      $scope.z = "";
+      $scope.sum = function(){
+        $scope.z = $scope.x + $scope.y;
+      }
+    }]);
+  </script>
+
+</head>
+<body ng-controller="CalcCtrl">
+  <input type="number" ng-model="x">
+  <input type="number" ng-model="y">
+  <input type="button" ng-click="sum()" value="+">
+  <strong>{{z}}</strong>
+</body>
+</html>

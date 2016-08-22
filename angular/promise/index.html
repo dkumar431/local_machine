@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<title>Promise Demo</title>
+	<script src="/angular/lib/angular.js"> </script>
+	<script type="text/javascript">
+		var myApp = angular.module('myApp', []);
+		myApp.controller('MainController', ['$scope','$q','$interval', function($scope,$q,$interval){
+			$scope.getPromise = function(){
+				var i = 0;
+				var deferred = $q.defer();
+				var timer = $interval(function(){
+					
+					if($scope.cancelRequested){
+						deferred.reject("Promise Rejected because of cancelation.");
+						$interval.cancel(timer);
+					}
+					i = i + 1;
+					if(i == 5){
+						deferred.resolve("Counter reached 5");
+						$interval.cancel(timer);
+					}else{
+						deferred.notify("Counter has reached" + i);
+					}
+				},1000);
+
+				return deferred.promise;
+			};
+			$scope.getAsyncMessage = function(){
+				var promise = $scope.getPromise();
+				promise.then(function(message){
+					$scope.status = "Resolved : " + message;
+				},function(message){
+					$scope.status = "Rejected : " + message;
+				},function(message){
+					$scope.status = "Notifying : " + message;
+				});
+			};
+		}]);
+	</script>
+</head>
+<body ng-controller="MainController">
+	<input type="button" ng-click="getAsyncMessage()" value="Get Message"></input>
+	<input type="button" ng-click="cancelRequested=true" value="Cancel Message"></input>
+	Promise Status - {{status}}
+</body>
+</html>

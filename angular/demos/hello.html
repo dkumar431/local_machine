@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <script src="/lib/angular.js"> </script>
+    <script type="text/javascript">
+      var app = angular.module("myApp",[]);
+      app.service('hexafy', function() {
+          this.myFunc = function (x) {
+              return x.toString(16);
+          }
+      });
+      app.controller('myCtrl',function($scope,$location,$http,hexafy){
+        $scope.myurl = $location.absUrl();
+        $scope.myhex = hexafy.myFunc(16);
+        $scope.names = ['Amit','Deepak','Ajay'];
+        $http.get("maps.html").then(function(response){
+            console.log(response);
+            $scope.myloc = response.data.markers[0].homeTeam;
+        },function(response){
+          $scope.myloc = "Something went wrong.";
+        });
+
+      });
+    </script>
+  </head>
+  <body ng-app="myApp">
+  <div ng-controller="myCtrl">
+    <span ng-bind="myurl"></span>
+    <span ng-bind="myloc"></span>
+    <span ng-bind="myhex"></span>
+    <select ng-model="user" ng-options="name for name in names"></select>
+  </div>
+  </body>
+</html>

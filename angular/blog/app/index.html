@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" ng-app="spBlogger">
+  <head>
+    <meta charset="utf-8">
+    <base href="/">
+    <title>The Single Page Blogger</title>
+
+    <link rel="stylesheet" href="/angular/blog/app/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/angular/blog/app/css/app.css">
+    <!-- <link rel="stylesheet" href="/angular/blog/modules/posts/css/posts.css"> -->
+
+    <script type="text/javascript" src="/angular/lib/angular.js"></script>
+    <script type="text/javascript" src="/angular/lib/angular-ui-router.js"></script>
+    <script type="text/javascript" src="/angular/lib/angular-resource.js"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.0/angular-ui-router.js"></script> -->
+
+    <script type="text/javascript" src="/angular/blog/app/js/app.js"></script>
+    <script type="text/javascript" src="/angular/blog/app/js/controllers.js"></script>
+    <script type="text/javascript" src="/angular/blog/app/js/directives.js"></script>
+    <script type="text/javascript" src="/angular/blog/app/js/services.js"></script>
+    <script type="text/javascript" src="/angular/blog/app/js/filters.js"></script>
+
+    <script type="text/javascript" src="/angular/blog/app/modules/posts/js/postModule.js"></script>
+    <script type="text/javascript" src="/angular/blog/app/modules/posts/js/services.js"></script>
+    <script type="text/javascript" src="/angular/blog/app/modules/posts/js/controllers.js"></script>
+    <script type="text/javascript" src="/angular/blog/app/modules/posts/js/filters.js"></script>
+    <script type="text/javascript" src="/angular/blog/app/modules/posts/js/directives.js"></script>
+
+    <script type="text/javascript" src="/angular/blog/app/modules/admin/js/adminModule.js"></script>
+    <script type="text/javascript" src="/angular/blog/app/modules/admin/js/controllers.js"></script>
+    <script type="text/javascript" src="/angular/blog/app/modules/admin/js/service.js"></script>
+    
+
+  </head>
+  <body>
+    <div class="container">
+      <br/>
+      
+      <div class="jumbotron text-center">
+        <h1>The Single Page Blogger</h1>
+        <p>One stop blogging solution</p>
+      </div>
+
+      <div ui-view></div>
+      
+      <div class="row footer">
+        <div class="col-xs-12 text-center">
+          <p>The Single Page Blogger <app-version/></p>
+        </div>
+      </div>
+    
+    </div>
+  </body>
+</html>
+
+
+
